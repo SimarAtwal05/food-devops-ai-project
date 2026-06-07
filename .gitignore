@@ -1,0 +1,35 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+*.db
+food_ordering.db
+
+# Environment Variables
+.env
+
+# Pytest
+.pytest_cache/
+
+# VS Code
+.vscode/
+
+# LangGraph Generated Projects
+generated_projects/
+
+# Logs
+*.log
+
+# Docker
+.dockerignore
+
+# OS Files
+.DS_Store
+Thumbs.db
