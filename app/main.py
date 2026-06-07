@@ -2,11 +2,12 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import models, schemas, crud
 from app.database import engine, SessionLocal
+from prometheus_fastapi_instrumentator import Instrumentator
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Food Ordering CRUD App")
-
+Instrumentator().instrument(app).expose(app)
 
 def get_db():
     db = SessionLocal()
