@@ -1,13 +1,19 @@
 from maintenance.graph import build_graph
-from langchain_google_genai import ChatGoogleGenerativeAI
 
-llm = ChatGoogleGenerativeAI(
-    model="gemini-1.5-flash",
-    temperature=0
-)
+if __name__ == "__main__":
 
-graph = build_graph(llm)
+    graph = build_graph()
 
-graph.invoke({
-    "error_log": "logs/error.log"
-})
+    result = graph.invoke(
+        {
+            "error_log": "",
+            "analysis": "",
+            "root_cause": "",
+            "patch": "",
+            "approved": False,
+            "signature_valid": False,
+        }
+    )
+
+    print("\nMaintenance Workflow Complete")
+    print(result)

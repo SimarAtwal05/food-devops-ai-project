@@ -1,0 +1,23 @@
+```python
+# app/services/order.py
+
+# ... (lines 1-41)
+
+# Line 42: Ensure the operand that might be None defaults to 0 for subtraction.
+# Assuming the problematic line conceptually looked like:
+# final_amount = base_price - discount_amount
+
+# Corrected line 42:
+final_amount = base_price - (discount_amount or 0)
+
+# ... (lines 43 onwards)
+```
+
+**Explanation:**
+
+The fix addresses the `TypeError` by ensuring that `discount_amount` (or whatever variable was evaluating to `None`) is treated as `0` if it is `None`. The `(discount_amount or 0)` expression works as follows:
+
+*   If `discount_amount` has a truthy value (i.e., it's a number like `5`, `10.5`, `0` itself, etc.), the expression evaluates to `discount_amount`.
+*   If `discount_amount` is `None` (which is a falsy value), the expression falls back to `0`.
+
+This prevents the subtraction operation from attempting to operate on `NoneType`, resolving the `TypeError` by providing a valid numeric default when a value is missing.

@@ -1,20 +1,42 @@
-def fix_generator(state, llm):
-    response = llm.invoke(
-        f"""
-        Generate a unified git diff to fix this bug.
+import os
+from dotenv import load_dotenv
+from google import genai
+from agents.gemini_client import (
+    generate_with_fallback
+)
 
-        Root cause:
+load_dotenv()
+
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
+
+def fix_generator(state):
+    print("STEP 7: FIX GENERATOR")
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=f"""
+        Generate a fix.
+
+        Root Cause:
+
         {state['root_cause']}
 
-        RULES:
-        - Output ONLY a git diff
-        - No explanations
+        Return:
+        - Corrected code
+        - Explanation
+
+        Keep response concise.
         """
     )
+    print("STEP 8: FIX GENERATED")
+    patch = response.text
 
-    patch = response.content
-
-    with open("patches/fix.diff", "w") as f:
+    with open(
+        "patches/fix.diff",
+        "w",
+        encoding="utf-8"
+    ) as f:
         f.write(patch)
 
     return {

@@ -1,9 +1,17 @@
 def human_review(state):
-    print("\n===== PROPOSED PATCH =====\n")
+
+    print("\n")
+    print("=" * 60)
+    print("PROPOSED FIX")
+    print("=" * 60)
+
     print(state["patch"])
 
-    choice = input("\nApprove patch? (yes/no): ")
+    answer = input(
+        "\nApprove Fix? (yes/no): "
+    )
 
     return {
-        "approved": choice.strip().lower() == "yes"
+        "approved":
+        answer.lower() == "yes"
     }
